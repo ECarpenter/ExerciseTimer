@@ -68,7 +68,7 @@ public class FirstFragment extends Fragment {
                     this.elapsedSeconds = this.elapsedTime / 1000;
                     this.elapsedMinutes = this.elapsedSeconds / 60;
                     this.elapsedHours = this.elapsedMinutes / 60;
-                    this.clockDisplay.setText(getString(R.string.clock_display,elapsedHours,elapsedMinutes,elapsedSeconds));
+                    this.clockDisplay.setText(getString(R.string.clock_display,elapsedHours,elapsedMinutes%60,elapsedSeconds%60));
                 }
             }
         }
