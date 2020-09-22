@@ -9,9 +9,55 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class FirstFragment extends Fragment {
+public class ClockAndControlFragment extends Fragment {
+
+    private TextView clockDisplay;
+    private Handler clockHandler;
+    private RecyclerView exerciseList;
+    private RecyclerView.Adapter listAdapter;
+    private RecyclerView.LayoutManager listLayoutManager;
+    private long startTime;
+
+
+    public static class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder> {
+        private String[] exerciseNames;
+
+        public ExerciseListAdapter(String[] list) {
+            exerciseNames = list;
+        }
+
+        @NonNull
+        @Override
+        public ExerciseListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_item, parent, false);
+            TextView textItem = (TextView)item.findViewById(R.id.exerciseItem);
+            return new ExerciseListViewHolder(item);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ExerciseListViewHolder holder, int position) {
+            holder.textView.setText(exerciseNames[position]);
+        }
+
+        @Override
+        public int getItemCount() {
+            return exerciseNames.length;
+        }
+
+        public static class ExerciseListViewHolder extends RecyclerView.ViewHolder {
+            public TextView textView;
+
+            public ExerciseListViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+
+                textView = (TextView)itemView.findViewById(R.id.exerciseItem);
+            }
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -19,17 +65,29 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return inflater.inflate(R.layout.clock_and_control, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final long[] startTime = {System.currentTimeMillis()};
 
-        final TextView clockDisplay = (TextView) view.findViewById(R.id.clock_display);
-        final Handler clockHandler = new Handler();
+
+        clockDisplay = (TextView) view.findViewById(R.id.clock_display);
+        clockHandler = new Handler();
+        exerciseList = (RecyclerView) view.findViewById(R.id.ExerciseListView);
+
+        exerciseList.setHasFixedSize(true);
+        listLayoutManager = new LinearLayoutManager(getContext());
+        exerciseList.setLayoutManager(listLayoutManager);
+
+        String[] tempList = getResources().getStringArray(R.array.exercise_names);
+        listAdapter = new ExerciseListAdapter(tempList);
+        exerciseList.setAdapter(listAdapter);
+
         clockDisplay.setText(getString(R.string.clock_display,0,0,0));
+
+
         class clockRunnable implements Runnable {
             private Handler clockHandler;
             private TextView clockDisplay;
@@ -43,13 +101,8 @@ public class FirstFragment extends Fragment {
 
             public clockRunnable(Handler clockHandler, long startTime, TextView clockDisplay){
                 this.clockHandler = clockHandler;
-                //this.startTime = startTime;
                 this.clockDisplay = clockDisplay;
                 this.running = false;
-                //this.elapsedTime = System.currentTimeMillis() - this.startTime;
-                //this.elapsedSeconds = this.elapsedTime/1000;
-                //this.elapsedMinutes = this.elapsedSeconds/60;
-                //this.elapsedHours = this.elapsedMinutes/60;
             }
 
             public void setStartTime(long startTime) {
@@ -73,14 +126,14 @@ public class FirstFragment extends Fragment {
             }
         }
 
-        final clockRunnable clockRunner = new clockRunnable(clockHandler, startTime[0], clockDisplay);
+        final clockRunnable clockRunner = new clockRunnable(clockHandler, startTime, clockDisplay);
 
 
         view.findViewById(R.id.button_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTime[0] = System.currentTimeMillis();
-                clockRunner.setStartTime(startTime[0]);
+                startTime = System.currentTimeMillis();
+                clockRunner.setStartTime(startTime);
                 clockRunner.setRunning(true);
                 clockHandler.post(clockRunner);
             }

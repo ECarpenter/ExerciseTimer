@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/ClockAndControl">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.exercisetimer.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/ClockAndControl"
+        android:name="com.example.exercisetimer.ClockAndControlFragment"
+        android:label="@string/clock_and_control_label"
+        tools:layout="@layout/clock_and_control">
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_ClockAndControl_to_ExerciseList"
+            app:destination="@id/ExerciseListEdit" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.exercisetimer.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/ExerciseListEdit"
+        android:name="com.example.exercisetimer.ExerciseListFragment"
+        android:label="@string/exercise_list_label"
+        tools:layout="@layout/exercise_list_edit">
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_ExerciseList_to_ClockAndControl"
+            app:destination="@id/ClockAndControl" />
     </fragment>
 </navigation>

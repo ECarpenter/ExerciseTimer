@@ -2,13 +2,25 @@
     <string name="app_name">Exercise Timer</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="exercise_list_label">Exercise List Edit</string>
+    <string name="clock_and_control_label">Clock And Control</string>
     <string name="start">START</string>
     <string name="stop">STOP</string>
     <string name="add">ADD</string>
     <string name="previous">Previous</string>
 
     <string name="clock_display">%1$02d:%2$02d:%3$02d</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string-array name="exercise_names">
+        <item>Bicep Curl</item>
+        <item>Crunch</item>
+        <item>Squat</item>
+        <item>Lunges</item>
+        <item>Shoulder Press</item>
+        <item>Kettle Bell Swing</item>
+        <item>Push Up</item>
+        <item>Pull Up</item>
+        <item>Jump rope</item>
+        <item>High Step</item>
+    </string-array>
+
 </resources>
