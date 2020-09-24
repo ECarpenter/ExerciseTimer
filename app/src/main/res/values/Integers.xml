@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="exercise_times">
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+        <item>20</item>
+        <item>40</item>
+    </integer-array>
+</resources>

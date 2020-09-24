@@ -9,17 +9,26 @@
     <string name="add">ADD</string>
     <string name="previous">Previous</string>
 
-    <string name="clock_display">%1$02d:%2$02d:%3$02d</string>
+    <string name="clock_display">%1$02d:%2$02d</string>
     <string-array name="exercise_names">
         <item>Bicep Curl</item>
+        <item>REST</item>
         <item>Crunch</item>
+        <item>REST</item>
         <item>Squat</item>
+        <item>REST</item>
         <item>Lunges</item>
+        <item>REST</item>
         <item>Shoulder Press</item>
+        <item>REST</item>
         <item>Kettle Bell Swing</item>
+        <item>REST</item>
         <item>Push Up</item>
+        <item>REST</item>
         <item>Pull Up</item>
+        <item>REST</item>
         <item>Jump rope</item>
+        <item>REST</item>
         <item>High Step</item>
     </string-array>
 

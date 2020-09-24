@@ -1,7 +1,8 @@
-package com.example.exercisetimer;
+package com.example.exercisetimer.Ativities;
 
 import android.os.Bundle;
 
+import com.example.exercisetimer.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
