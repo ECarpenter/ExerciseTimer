@@ -21,7 +21,7 @@ public class clockRunnable implements Runnable {
     private long startTime;
     private long elapsedTime;
     private long elapsedSeconds;
-    private long elapsedMinutes;
+    private long displaySeconds;
 
 
     public clockRunnable(Handler clockHandler, long startTime, TextView clockDisplay, RecyclerView exerciseList){
@@ -32,33 +32,42 @@ public class clockRunnable implements Runnable {
         position = 0;
         exerciseListAdapter = (ExerciseListAdapter) exerciseList.getAdapter();
         if (exerciseListAdapter != null) {
-            exerciseListAdapter.setFocus(position);
+            exerciseListAdapter.setPosition(position);
         }
         this.running = false;
     }
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void startRunning() {
+        this.startTime = System.currentTimeMillis();
+        this.running = true;
+        this.clockHandler.post(this);
     }
 
-    public void setRunning(boolean running) {
-        this.running = running;
+    public void stopRunning(){
+        this.running = false;
     }
+
 
     @Override
     public void run() {
         if (this.running) {
-            this.clockHandler.postDelayed(this, 1000);
+            this.clockHandler.postDelayed(this, 500);
             this.elapsedTime = System.currentTimeMillis() - this.startTime;
             this.elapsedSeconds = this.elapsedTime / 1000;
-            this.elapsedMinutes = this.elapsedSeconds / 60;
-            this.clockDisplay.setText(clockDisplay.getResources().getString(R.string.clock_display,elapsedMinutes%60,elapsedSeconds%60));
-            if (elapsedSeconds%5 == 0){
-                if (position != (elapsedSeconds/5)%7){
-                    position = (int)(elapsedSeconds/5)%7;
-                    exerciseListAdapter.setFocus(position);
-                }
+            this.displaySeconds = exerciseListAdapter.getTime() - this.elapsedSeconds;
+            this.clockDisplay.setText(clockDisplay.getResources().getString(R.string.clock_display,displaySeconds/60,displaySeconds%60));
+            if (elapsedSeconds >= exerciseListAdapter.getTime()){
+                position++;
+                this.startTime = System.currentTimeMillis();
                 alarm.startTone(ToneGenerator.TONE_PROP_BEEP2,50);
+                if (position < exerciseListAdapter.getItemCount()){
+                    exerciseListAdapter.setPosition(position);
+                }
+                else {
+                    this.running = false;
+                }
+
+
             }
         }
     }

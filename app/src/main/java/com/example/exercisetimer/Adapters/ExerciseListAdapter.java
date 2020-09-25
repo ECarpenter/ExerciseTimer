@@ -6,22 +6,38 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.exercisetimer.Adapters.ExerciseListAdapter;
 import com.example.exercisetimer.R;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseListViewHolder> {
     private String[] exerciseNames;
-    private int currPosition;
+    private int[] exerciseTimes;
+    private int currPosition = 0;
+    private boolean running = false;
 
-    public ExerciseListAdapter(String[] list) {
-        exerciseNames = list;
-        currPosition = 0;
+    public ExerciseListAdapter(String[] exerciseNames, int[] exerciseTimes) {
+        this.exerciseNames = exerciseNames;
+        this.exerciseTimes = exerciseTimes;
     }
 
-    public void setFocus(int position){
-
+    public void setPosition(int position){
         currPosition = position;
+        notifyDataSetChanged();
+    }
+
+    public int getTime(){
+        return exerciseTimes[currPosition];
+    }
+
+    public void startRunning() {
+        this.running = true;
+        notifyDataSetChanged();
+    }
+
+    public void stopRunning(){
+        this.running = false;
+        currPosition = 0;
         notifyDataSetChanged();
     }
 
@@ -38,11 +54,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseListViewHolder holder, int position) {
-        holder.textView.setText(exerciseNames[position]);
-        if (position == currPosition) {
-            holder.textView.setBackgroundColor(holder.textView.getContext().getResources().getColor(R.color.Green));
-            holder.textView.setTextSize((float) (holder.textView.getTextSize() * 1.5));
+        String temp = exerciseNames[position];
+
+        if (position == currPosition && running) {
+                holder.textView.setBackgroundColor(ContextCompat.getColor(holder.textView.getContext(),R.color.Green));
+                holder.textView.setTextSize((float) (holder.textView.getTextSize() * 1.5));
         }
+        else {
+            temp += " - " + holder.textView.getResources().getString(R.string.clock_display, exerciseTimes[position]/60, exerciseTimes[position]%60);
+        }
+        holder.textView.setText(temp);
     }
 
     @Override

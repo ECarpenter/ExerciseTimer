@@ -10,6 +10,7 @@
     <string name="previous">Previous</string>
 
     <string name="clock_display">%1$02d:%2$02d</string>
+    <string name="database_name">workout_database</string>
     <string-array name="exercise_names">
         <item>Bicep Curl</item>
         <item>REST</item>

@@ -2,6 +2,7 @@ package com.example.exercisetimer.Fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class ClockAndControlFragment extends Fragment {
 
         //Sets up the clock display
         clockDisplay = view.findViewById(R.id.clock_display);
-        clockHandler = new Handler();
+        clockHandler = new Handler(Looper.myLooper());
         clockDisplay.setText(getString(R.string.clock_display,0,0));
 
         //Set up Recycler view for exercise list at the bottom
@@ -49,8 +50,9 @@ public class ClockAndControlFragment extends Fragment {
         exerciseList.setHasFixedSize(true);
         listLayoutManager = new LinearLayoutManager(getContext());
         exerciseList.setLayoutManager(listLayoutManager);
-        String[] tempList = getResources().getStringArray(R.array.exercise_names);
-        exerciseListAdapter = new ExerciseListAdapter(tempList);
+        String[] nameList = getResources().getStringArray(R.array.exercise_names);
+        int[] timeList = getResources().getIntArray(R.array.exercise_times);
+        exerciseListAdapter = new ExerciseListAdapter(nameList, timeList);
         exerciseList.setAdapter(exerciseListAdapter);
 
 
@@ -61,17 +63,17 @@ public class ClockAndControlFragment extends Fragment {
         view.findViewById(R.id.button_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTime = System.currentTimeMillis();
-                clockRunner.setStartTime(startTime);
-                clockRunner.setRunning(true);
-                clockHandler.post(clockRunner);
+
+                clockRunner.startRunning();
+                exerciseListAdapter.startRunning();
             }
         });
 
         view.findViewById(R.id.button_stop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clockRunner.setRunning(false);
+                clockRunner.stopRunning();
+                exerciseListAdapter.stopRunning();
             }
         });
     }
