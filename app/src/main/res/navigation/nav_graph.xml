@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/ExerciseListEdit"
-        android:name="com.example.exercisetimer.Fragments.ExerciseListFragment"
+        android:name="com.example.exercisetimer.Fragments.ExerciseListEditFragment"
         android:label="@string/exercise_list_label"
         tools:layout="@layout/exercise_list_edit">
         <action

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.exercisetimer.R;
 
-public class ExerciseListFragment extends Fragment {
+public class ExerciseListEditFragment extends Fragment {
 
     @Override
     public View onCreateView(

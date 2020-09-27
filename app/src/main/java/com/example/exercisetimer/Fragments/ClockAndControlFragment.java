@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exercisetimer.Adapters.ExerciseListAdapter;
+import com.example.exercisetimer.Ativities.MainActivity;
 import com.example.exercisetimer.R;
 import com.example.exercisetimer.Runnables.clockRunnable;
 
@@ -21,10 +22,10 @@ public class ClockAndControlFragment extends Fragment {
 
     private TextView clockDisplay;
     private Handler clockHandler;
+    private long startTime;
     private RecyclerView exerciseList;
     private ExerciseListAdapter exerciseListAdapter;
     private RecyclerView.LayoutManager listLayoutManager;
-    private long startTime;
 
 
     @Override
@@ -43,18 +44,18 @@ public class ClockAndControlFragment extends Fragment {
         //Sets up the clock display
         clockDisplay = view.findViewById(R.id.clock_display);
         clockHandler = new Handler(Looper.myLooper());
-        clockDisplay.setText(getString(R.string.clock_display,0,0));
+        clockDisplay.setText(getString(R.string.clock_display, 0, 0));
+
 
         //Set up Recycler view for exercise list at the bottom
         exerciseList = view.findViewById(R.id.ExerciseListView);
         exerciseList.setHasFixedSize(true);
-        listLayoutManager = new LinearLayoutManager(getContext());
+        listLayoutManager = new LinearLayoutManager(exerciseList.getContext());
         exerciseList.setLayoutManager(listLayoutManager);
         String[] nameList = getResources().getStringArray(R.array.exercise_names);
         int[] timeList = getResources().getIntArray(R.array.exercise_times);
         exerciseListAdapter = new ExerciseListAdapter(nameList, timeList);
         exerciseList.setAdapter(exerciseListAdapter);
-
 
         //create timer
         final clockRunnable clockRunner = new clockRunnable(clockHandler, startTime, clockDisplay, exerciseList);

@@ -41,15 +41,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.050000012" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ExerciseListView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="75dp"
+    <include
+        layout="@layout/exercise_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clock_display"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintTop_toBottomOf="@+id/button_start" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

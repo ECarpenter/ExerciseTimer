@@ -2,12 +2,16 @@ package com.example.exercisetimer.Ativities;
 
 import android.os.Bundle;
 
+import com.example.exercisetimer.Adapters.ExerciseListAdapter;
 import com.example.exercisetimer.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
@@ -24,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
